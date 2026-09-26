@@ -13,16 +13,47 @@ $(window).load(function () {
 $(document).ready(function () {
     "use strict";
 
-    // scroll menu
+    // scroll menu, progress bar & back-to-top
     var sections = $('.section'),
         nav = $('.navbar-fixed-top,footer'),
         nav_height = nav.outerHeight();
 
-    $(window).on('scroll', function () {
-        var cur_pos = $(this).scrollTop();
+    function handleScroll() {
+        var cur_pos = $(window).scrollTop();
+        var win_height = $(window).height();
+        var doc_height = $(document).height();
 
+        // Reading progress bar
+        var total_scroll = doc_height - win_height;
+        var progress = (total_scroll > 0) ? (cur_pos / total_scroll) * 100 : 0;
+        $('#scroll-progress').css('width', Math.min(100, Math.max(0, progress)) + '%');
+
+        // Back to top button visibility
+        if (cur_pos > 300) {
+            $('#back-to-top').addClass('show-btn');
+        } else {
+            $('#back-to-top').removeClass('show-btn');
+        }
+
+        // Header opacity
+        if (cur_pos > 80) {
+            $(".navbar-fixed-top").addClass("bg-nav");
+        } else {
+            $(".navbar-fixed-top").removeClass("bg-nav");
+        }
+
+        // Check if reached bottom of page -> activate last section (#contact)
+        if (cur_pos + win_height >= doc_height - 60) {
+            nav.find('a').removeClass('active');
+            sections.removeClass('active');
+            $('#contact').addClass('active');
+            nav.find('a[href="#contact"]').addClass('active');
+            return;
+        }
+
+        // Section active detection
         sections.each(function () {
-            var top = $(this).offset().top - nav_height,
+            var top = $(this).offset().top - nav_height - 20,
                 bottom = top + $(this).outerHeight();
 
             if (cur_pos >= top && cur_pos <= bottom) {
@@ -33,7 +64,10 @@ $(document).ready(function () {
                 nav.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
             }
         });
-    });
+    }
+
+    $(window).on('scroll', handleScroll);
+    handleScroll();
 
     nav.find('a').on('click', function () {
         var $el = $(this),
@@ -46,19 +80,12 @@ $(document).ready(function () {
         return false;
     });
 
-
-    // Menu opacity
-    if ($(window).scrollTop() > 80) {
-        $(".navbar-fixed-top").addClass("bg-nav");
-    } else {
-        $(".navbar-fixed-top").removeClass("bg-nav");
-    }
-    $(window).scroll(function () {
-        if ($(window).scrollTop() > 80) {
-            $(".navbar-fixed-top").addClass("bg-nav");
-        } else {
-            $(".navbar-fixed-top").removeClass("bg-nav");
-        }
+    $('#back-to-top').on('click', function (e) {
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: 0
+        }, 600);
+        return false;
     });
 
 
