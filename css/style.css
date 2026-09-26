@@ -315,19 +315,22 @@ a.active {
 
 #home {
     background: url(../img/home-bg-2.jpg);
-    background-size: auto;
-    /* background-size: cover; */
-    height: 100vh;
-}
-
-.table-cell {
-    display: table-cell;
-    vertical-align: middle;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
 }
 
 .disply-table {
-    display: table;
-    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.table-cell {
+    flex: 1;
+    max-width: 620px;
 }
 
 
@@ -800,10 +803,19 @@ fieldset {
     color: #000;
 }
 
-#profilepic{
-    margin-top: 150px;
-    margin-left: 500px;
+#profilediv {
+    flex-shrink: 0;
+    margin-left: 40px;
 }
+
+#profilepic {
+    max-width: 380px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
 .resumediv{ 
     margin-top: 25px;
     width: 140px;
@@ -826,73 +838,188 @@ fieldset {
 /* Responsive media queries
 ==================================================*/
 
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw;
+}
+
 @media (max-width: 991px) {
+    /* Esconde a foto no mobile e tablet para nao bugar o layout */
+    #profilediv,
+    #profilepic {
+        display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    #home {
+        height: auto !important;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 90px 0 50px;
+    }
+
+    .disply-table {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        height: auto !important;
+        min-height: calc(100vh - 140px);
+        width: 100%;
+    }
+
+    .table-cell {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 20px 0 !important;
+        text-align: left;
+    }
+
+    .table-cell h1 {
+        font-size: 46px;
+        line-height: 52px;
+        margin: 15px 0;
+    }
+
+    .table-cell h4 {
+        font-size: 18px;
+        margin-left: 0 !important;
+    }
+
+    .table-cell h4:before {
+        display: none !important;
+    }
+
     .portfolio .categories-grid .categories ul li a {
-        padding: 0 2px;
+        padding: 0 4px;
+        font-size: 12px;
     }
 }
 
 @media (max-width: 768px) {
+    header {
+        height: auto;
+        min-height: 55px;
+    }
+
+    nav ul {
+        padding: 12px 0px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    nav li {
+        margin: 3px 6px;
+    }
+
+    nav li a {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+    }
+
     .timeline-event-copy {
-        width: 90%;
+        width: 85%;
         left: 2em;
     }
-}
 
-@media (max-width: 500px) {
-    h1 {
-        font-family: 'Playfair Display', serif;
-        font-size: 50px;
-        line-height: 50px;
+    .table-cell h1 {
+        font-size: 40px;
+        line-height: 46px;
     }
-    #home,
-    .disply-table {
-        height: 600px;
-    }
+
     .about-border {
         width: 265px;
     }
+
     .portfolio .categories-grid .categories ul li {
         list-style: none;
-        margin: 10px 0;
+        margin: 8px 0;
+    }
+
+    .Skills .container-skill .mainSkill .front,
+    .Skills .container-skill .mainSkill .back,
+    .Skills .container-skill .mainSkill .datasci,
+    .Skills .container-skill .mainSkill .tools {
+        padding: 16px 18px;
+    }
+
+    .Skills .container-skill .mainSkill .box {
+        gap: 8px;
+    }
+
+    .Skills .container-skill .mainSkill .front .frontSkill,
+    .Skills .container-skill .mainSkill .back .backSkill,
+    .Skills .container-skill .mainSkill .datasci .datasciSkill,
+    .Skills .container-skill .mainSkill .tools .toolsSkill {
+        font-size: 13px;
+        padding: 8px 12px;
     }
 }
 
-@media (max-width: 431px) {
-    nav li {
-        margin: 6px;
+@media (max-width: 480px) {
+    header {
+        min-height: 50px;
     }
-    nav li a {
-        font-size: 6px;
-    }
+
     nav ul {
-        padding: 20px 0px;
+        padding: 10px 0;
     }
-    #home {
-        height: 760px;
-    
-    }
-    #profilepic{
-        margin: 40px 30px 0px 50px;
-        width: 300px;
-    }
-    .table-cell{
-        display: block;
-        margin: 120px 30px 0px 24px;
 
+    nav li {
+        margin: 2px 4px;
     }
-    .table-cell h1{
-        font-size: 30px;
+
+    nav li a {
+        font-size: 9px;
+        letter-spacing: 0px;
     }
-    .table-cell h4{
+
+    .table-cell h1 {
+        font-size: 32px !important;
+        line-height: 38px !important;
+        margin: 12px 0;
+    }
+
+    .table-cell h4 {
+        font-size: 15px !important;
+        margin-left: 0 !important;
+    }
+
+    .table-cell p {
+        font-size: 12px !important;
+        margin-bottom: 15px !important;
+    }
+
+    #herobtn {
+        margin-top: 15px;
+    }
+
+    .hero-icon-btn {
+        width: 40px;
+        height: 40px;
         font-size: 20px;
-        margin-left: 0px;
-    }
-    .resumediv{
-        margin-top: 0px;
-        width: 120px;
+        margin-right: 12px;
     }
 
+    .size-50 {
+        font-size: 32px !important;
+    }
+
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
 }
 
   .resumediv a{
