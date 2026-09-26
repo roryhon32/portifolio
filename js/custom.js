@@ -73,8 +73,9 @@ $(document).ready(function () {
         var $el = $(this),
             id = $el.attr('href');
 
+        var current_nav_height = $('.navbar-fixed-top').outerHeight() || nav_height;
         $('html, body').animate({
-            scrollTop: $(id).offset().top - nav_height + 2
+            scrollTop: $(id).offset().top - current_nav_height + 2
         }, 600);
 
         return false;
