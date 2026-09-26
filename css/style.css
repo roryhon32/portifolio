@@ -263,9 +263,26 @@ nav li a {
     padding: 10px;
 }
 
-a:focus {
+a:focus,
+a:active,
+a:focus-visible {
     color: #444;
     text-decoration: none;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+header a,
+header a:focus,
+header a:active,
+header a:focus-visible,
+nav li a,
+nav li a:focus,
+nav li a:active,
+nav li a:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
 }
 
 a:hover {
@@ -275,6 +292,7 @@ a:hover {
 
 a.active {
     color: #425BB5;
+    outline: none !important;
 }
 
 
@@ -581,8 +599,14 @@ a.active {
 }
 
 .portfolio_item img {
-    /* -webkit-filter: grayscale(100%); */
-    /* filter: grayscale(100%); */
+    -webkit-filter: grayscale(100%) !important;
+    filter: grayscale(100%) !important;
+    transition: filter 0.3s ease, -webkit-filter 0.3s ease;
+}
+
+.portfolio_item:hover img {
+    -webkit-filter: grayscale(100%) !important;
+    filter: grayscale(100%) !important;
 }
 
 .portfolio-padding {
@@ -755,6 +779,11 @@ fieldset {
 
 .social li a:hover {
     color: #425BB5;
+}
+
+#contact .social li a,
+#contact .social li a:hover {
+    color: #000;
 }
 
 #profilepic{
@@ -971,24 +1000,16 @@ fieldset {
     transition: all 0.3s ease;
 }
 
-.Skills .container-skill .mainSkill .front .box img{
+.Skills .container-skill .mainSkill .front .box img,
+.Skills .container-skill .mainSkill .back .box img,
+.Skills .container-skill .mainSkill .datasci .box img,
+.Skills .container-skill .mainSkill .tools .box img,
+.Skills .container-skill .mainSkill .box img {
     width: 30px;
     height: 30px;
-}
-
-.Skills .container-skill .mainSkill .back .box img{
-    width: 30px;
-    height: 30px;
-}
-
-.Skills .container-skill .mainSkill .datasci .box img{
-    width: 30px;
-    height: 30px;
-}
-
-.Skills .container-skill .mainSkill .tools .box img{
-    width: 30px;
-    height: 30px;
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    object-fit: contain;
 }
 
 
